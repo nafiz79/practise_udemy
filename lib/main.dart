@@ -14,6 +14,52 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomeScreen(),
+      theme: ThemeData(
+        primaryColor: Colors.green,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.pink,
+            backgroundColor: Colors.green,
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            elevation: 5,
+            textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.6,
+              wordSpacing: 0.5,
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            textStyle: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+            ),
+            foregroundColor: Colors.deepOrange,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.pink,
+          elevation: 7,
+          shadowColor: Colors.green,
+        ),
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(fontSize: 22),
+          bodyMedium: TextStyle(fontSize: 18),
+          bodySmall: TextStyle(fontSize: 12),
+        ),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.amberAccent,
+        ),
+      ),
+      themeMode: ThemeMode.dark,
     );
   }
 }
@@ -26,69 +72,37 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
-        backgroundColor: Colors.blue,
       ),
-      body: Column(
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Switch(value: true, onChanged: (bool value) {}),
+          Text(
+            'Hello World 0',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          Text(
+            'Hello World 1',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          Text(
+            'Hello World 2',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Text('Hello World 3=default '),
+          TextButton(onPressed: () {}, child: Text('Tap Here 0')),
+          TextButton(onPressed: () {}, child: Text('Tap Here 0')),
+          TextButton(onPressed: () {}, child: Text('Tap Here 0')),
           ElevatedButton(
-              onPressed: () {
-                showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text('Alert'),
-                          content: Text('You are in Danger'),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Cancel')),
-                            TextButton(onPressed: () {}, child: Text('Okay'))
-                          ],
-                        ));
-              },
-              child: Text('Show dialog')),
-          ElevatedButton(
-              onPressed: () {
-                showAboutDialog(
-                    context: context,
-                    applicationName: "PikaPie",
-                    applicationVersion: "1.4.2",
-                    children: [
-                      Text('This Application is good for regular uses'),
-                    ]);
-              },
-              child: Text('Show About')),
-          ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  isDismissible: false,
-                  backgroundColor: Colors.grey.shade100,
-                  barrierColor: Colors.black54,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(26),
-                      topRight: Radius.circular(26),
-                    ),
-                  ),
-                  context: context,
-                  builder: (context) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Center(child: Text('This is Modal Bottom Sheet')),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Text('Show Bottom Sheet'))
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.amber,
+            ),
+            onPressed: () {},
+            child: Text('Tap Here 1'),
+          ),
+          ElevatedButton(onPressed: () {}, child: Text('Tap Here 2'))
         ],
-      ),
+      )),
     );
   }
 }
