@@ -14,95 +14,80 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomeScreen(),
-      theme: ThemeData(
-        primaryColor: Colors.green,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.pink,
-            backgroundColor: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            elevation: 5,
-            textStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.6,
-              wordSpacing: 0.5,
-            ),
-          ),
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            textStyle: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
-            ),
-            foregroundColor: Colors.deepOrange,
-          ),
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.pink,
-          elevation: 7,
-          shadowColor: Colors.green,
-        ),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(fontSize: 22),
-          bodyMedium: TextStyle(fontSize: 18),
-          bodySmall: TextStyle(fontSize: 12),
-        ),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.amberAccent,
-        ),
-      ),
-      themeMode: ThemeMode.dark,
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class PassingParameterScreen extends StatefulWidget {
+  final String username;
+  const PassingParameterScreen({super.key, required this.username});
+
+  @override
+  State<PassingParameterScreen> createState() => _PassingParameterScreenState();
+}
+
+class _PassingParameterScreenState extends State<PassingParameterScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+        backgroundColor: Colors.blue,
+      ),
+      body: Center(child: Text(widget.username)),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
+    super.key,
+  });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Hello World 0',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          Text(
-            'Hello World 1',
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          Text(
-            'Hello World 2',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          Text('Hello World 3=default '),
-          TextButton(onPressed: () {}, child: Text('Tap Here 0')),
-          TextButton(onPressed: () {}, child: Text('Tap Here 0')),
-          TextButton(onPressed: () {}, child: Text('Tap Here 0')),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.amber,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              counter.toString(),
+              style: Theme.of(context).textTheme.displayLarge,
             ),
-            onPressed: () {},
-            child: Text('Tap Here 1'),
-          ),
-          ElevatedButton(onPressed: () {}, child: Text('Tap Here 2'))
-        ],
-      )),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PassingParameterScreen(username: 'Nafees Ahamed'),
+                    ),
+                  );
+                },
+                child: Text('Passing Parameter')),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          counter++;
+          print(counter);
+          setState(() {});
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
