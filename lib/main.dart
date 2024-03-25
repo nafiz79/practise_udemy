@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,75 +19,67 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class PassingParameterScreen extends StatefulWidget {
-  final String username;
-  const PassingParameterScreen({super.key, required this.username});
-
-  @override
-  State<PassingParameterScreen> createState() => _PassingParameterScreenState();
-}
-
-class _PassingParameterScreenState extends State<PassingParameterScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(child: Text(widget.username)),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-  });
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int counter = 0;
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Size size=MediaQuery.of(context).size;
+    // Size size = MediaQuery.sizeOf(context);
+    // print(size);
+    // print(size.width);
+    // print(size.height);
+    // print(size.aspectRatio);
+    // print(size.flipped);
+    // Orientation orientation = MediaQuery.orientationOf(context);
+    // print(orientation);
+    // List<DisplayFeature> displayfeatures =
+    //     MediaQuery.displayFeaturesOf(context);
+    // print(displayfeatures);
+    // print(MediaQuery.devicePixelRatioOf(context));
+    print(MediaQuery.platformBrightnessOf(context));
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Intro to Responsive Design'),
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              counter.toString(),
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          PassingParameterScreen(username: 'Nafees Ahamed'),
-                    ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          print(constraints.maxWidth);
+          print(constraints.maxHeight);
+          if (constraints.maxWidth > 500) {
+            return Center(child: Text('Too big screen'));
+          } else {
+            return Center(
+              child: OrientationBuilder(
+                builder: (context, orientation) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(orientation == Orientation.portrait
+                          ? 'Portrait'
+                          : 'Lanscape'),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        children: [
+                          Text('sj dfskd hjfgs djkfhsjd hfkhsd '),
+                          Text('sj djd hfgf gh khsd '),
+                          Text('sj dfskd hjfgs djkffsdfd shsjd '),
+                          Text('sj dfskd hjfgd gh kjdfh gdfjk gh dfkugd f '),
+                          Text('sj dfskd hjfgs djk gh kjdfh gdfjk ghfjsd f '),
+                          Text('sj dfskd hjfgkfhsjd gh kjjk gh dfkug fjsd f '),
+                          Text('sj dfskd hjfgs djkfhsjd gh k gh dfkug fjsd f '),
+                        ],
+                      )
+                    ],
                   );
                 },
-                child: Text('Passing Parameter')),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          counter++;
-          print(counter);
-          setState(() {});
+              ),
+            );
+          }
         },
-        child: Icon(Icons.add),
       ),
     );
   }
