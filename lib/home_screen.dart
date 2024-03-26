@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 //stack,postioned,align
 
 class HomeScreen extends StatelessWidget {
@@ -7,63 +8,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Stack(
-          children: [
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.pink,
-            ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      color: Colors.green,
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 15,
-              left: 10,
-              child: Container(
-                width: 30,
-                height: 30,
-                color: Colors.black54,
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              // bottom: 0,
-              child: Container(
-                width: 20,
-                height: 20,
-                color: Colors.purple,
-              ),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('Home'),
+          backgroundColor: Colors.blue,
         ),
-      ),
-    );
+        body: ResponsiveBuilder(
+          builder: (context, sizeInformation) {
+            return Center(
+              child: Text(
+                sizeInformation.deviceScreenType.toString(),
+                style: TextStyle(fontSize: 10.sh),
+              ),
+            );
+          },
+        ));
   }
 }

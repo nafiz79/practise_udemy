@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:practise_2/home_screen.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
+    return ResponsiveApp(
+      builder: (BuildContext context) {
+        return MaterialApp(
+          home: HomeScreen(),
+        );
+      },
     );
   }
 }
